@@ -1,0 +1,15 @@
+{
+  "page": {
+    "currentPage|number": "{{ $pathVariable.currentPage }}",
+    "pageSize|number": "{{ $pathVariable.pageSize }}",
+    "totalResult|number": "{{ random.num(100,200) }}"
+  },
+  "result|array({{ $pathVariable.pageSize }})": {
+    "id|number": "{{ $index+1 }}",
+    "name": "test {{ $index }}",
+    "roles|array(1-3)": ["admin", "developer", "tester", "designer"],
+    "describe": "{{ random.repeat('描述信息',10,200) }}",
+    "createDate": "{{ random.date('2018-01-01','2018-06-20') }}",
+    "updateTime": "{{ random.time('2018-01-01','2018-06-20') }}"
+  }
+}
