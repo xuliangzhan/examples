@@ -76,12 +76,14 @@ export default {
     },
     findList () {
       this.loading = true
-      this.$ajax.getJSON(`api/user/page/list/${this.pageVO.pageSize}/${this.pageVO.currentPage}`).then(data => {
+      this.$ajax.fetchGet(`api/user/page/list/${this.pageVO.pageSize}/${this.pageVO.currentPage}`).then(response => {
         this.loading = false
-        this.list = data
-        this.pageVO.totalResult = data.page.totalResult
-      }).catch(data => {
-        this.loading = false
+        if (response.ok) {
+          response.json().then(data => {
+            this.list = data.result
+            this.pageVO.totalResult = data.page.totalResult
+          })
+        }
       })
     },
     handleSizeChange (pageSize) {

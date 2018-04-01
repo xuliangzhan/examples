@@ -43,7 +43,7 @@ define([
 
   // XEAjax 参数设置
   XEAjax.setup({
-    bodyType: 'FORM_DATA',
+    bodyType: 'form-data',
     credentials: 'include'
   })
 

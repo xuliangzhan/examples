@@ -17,7 +17,7 @@ Vue.use(VXEAjax, XEAjax)
 Vue.config.productionTip = false
 
 XEAjax.setup({
-  bodyType: 'JSON_DATA',
+  bodyType: 'json-data',
   credentials: 'include'
 })
 

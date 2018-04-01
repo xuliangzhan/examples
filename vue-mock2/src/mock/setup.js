@@ -1,6 +1,6 @@
 import XEAjaxMock from 'xe-ajax-mock'
 
-// Mock 参数设置
+// mock defaults
 XEAjaxMock.setup({
   template: true,
   pathVariable: 'auto',

@@ -45,8 +45,11 @@ define([
 
   // XEAjax 参数设置
   XEAjax.setup({
-    bodyType: 'FORM_DATA',
-    credentials: 'include'
+    bodyType: 'json-data',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json, text/plain, */*;'
+    }
   })
 
   XEAjax.interceptors.request.use(function (request, next) {

@@ -1,7 +1,7 @@
 define([
   'xe-ajax-mock'
 ], function (XEAjaxMock) {
-  // Mock 参数设置
+  // mock defaults
   XEAjaxMock.setup({
     template: true,
     pathVariable: 'auto',

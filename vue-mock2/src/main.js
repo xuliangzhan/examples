@@ -15,8 +15,11 @@ Vue.use(VueI18n)
 Vue.config.productionTip = false
 
 XEAjax.setup({
-  bodyType: 'JSON_DATA',
-  credentials: 'include'
+  bodyType: 'form-data',
+  credentials: 'include',
+  headers: {
+    'Accept': 'application/json, text/plain, */*;'
+  }
 })
 
 // 启动前端虚拟服务,自动判断 DEV 环境使用 Mock，生产环境打包编译时会自动忽略该代码块
