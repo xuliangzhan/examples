@@ -1,8 +1,8 @@
 define([
   'xe-ajax-mock'
-], function (XEAjaxMock) {
+], function (XEMock) {
   // mock defaults
-  XEAjaxMock.setup({
+  XEMock.setup({
     template: true,
     pathVariable: 'auto',
     timeout: '100-1000',

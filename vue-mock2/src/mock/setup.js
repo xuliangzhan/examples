@@ -1,7 +1,7 @@
-import XEAjaxMock from 'xe-ajax-mock'
+import XEMock from 'xe-ajax-mock'
 
 // mock defaults
-XEAjaxMock.setup({
+XEMock.setup({
   template: true,
   pathVariable: 'auto',
   timeout: '100-1000',
