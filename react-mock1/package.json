@@ -6,8 +6,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
-    "xe-ajax": "^3.3.6",
-    "xe-ajax-mock": "^1.6.12"
+    "xe-ajax": "^3.4.0",
+    "xe-ajax-mock": "^1.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
