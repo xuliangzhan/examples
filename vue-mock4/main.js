@@ -40,7 +40,7 @@ define([
 ].concat(location.hostname.indexOf('localhost') === 0 ? ['mock'] : []), function (Vue, VueI18n, XEAjax, VXEAjax, XEUtils, VXEUtils, router) {
 
   Vue.use(VueI18n)
-  Vue.use(VXEAjax, XEAjax, true)
+  Vue.use(VXEAjax, XEAjax, {context: true})
   Vue.use(VXEUtils, XEUtils)
 
   // XEAjax 参数设置
