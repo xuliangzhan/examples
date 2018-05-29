@@ -15,14 +15,14 @@
     "build:zip": "node build/build.js zip"
   },
   "dependencies": {
-    "element-ui": "^2.3.7",
+    "element-ui": "^2.4.0",
     "vue": "^2.5.2",
     "vue-i18n": "^7.4.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "xe-ajax": "^3.4.2",
     "xe-ajax-mock": "^1.7.0",
-    "xe-utils": "^1.5.34"
+    "xe-utils": "^1.5.35"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
