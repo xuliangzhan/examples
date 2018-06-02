@@ -6,9 +6,9 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
-    "xe-ajax": "^3.4.2",
+    "xe-ajax": "^3.4.3",
     "xe-ajax-mock": "^1.7.0",
-    "xe-utils": "^1.5.35"
+    "xe-utils": "^1.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
