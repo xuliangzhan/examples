@@ -1,7 +1,7 @@
-import XEAjax from 'xe-ajax';
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import XEAjax from 'xe-ajax'
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
 
 // 启动前端虚拟服务,自动判断 DEV 环境使用 Mock，生产环境打包编译时会自动忽略该代码块
 if (process.env.NODE_ENV === 'development') {
@@ -19,7 +19,7 @@ XEAjax.interceptors.response.use((response, next) => {
 })
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <div className="App">
         <header className="App-header">
@@ -30,8 +30,8 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
