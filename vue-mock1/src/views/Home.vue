@@ -76,6 +76,7 @@ export default {
     },
     findList () {
       this.loading = true
+      // 使用 fetch API
       this.$ajax.fetchGet(`api/user/page/list/${this.pageVO.pageSize}/${this.pageVO.currentPage}`).then(response => {
         this.loading = false
         if (response.ok) {
@@ -84,6 +85,23 @@ export default {
             this.pageVO.totalResult = data.page.totalResult
           })
         }
+      })
+      // 直接响应结果对象
+      this.$ajax.doGet(`api/user/page/list/${this.pageVO.pageSize}/${this.pageVO.currentPage}`).then(response => {
+        var data = response.data
+        this.loading = false
+        this.list = data.result
+        this.pageVO.totalResult = data.page.totalResult
+      }).catch(e => {
+        this.loading = false
+      })
+      // 直接响应结果
+      this.$ajax.getJSON(`api/user/page/list/${this.pageVO.pageSize}/${this.pageVO.currentPage}`).then(data => {
+        this.loading = false
+        this.list = data.result
+        this.pageVO.totalResult = data.page.totalResult
+      }).catch(e => {
+        this.loading = false
       })
     },
     handleSizeChange (pageSize) {
