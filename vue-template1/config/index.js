@@ -5,9 +5,9 @@
 const path = require('path')
 
 function onProxyRes (proxyRes, req, res) {
-  const cookies = proxyRes.headers['set-cookie']
+  let cookies = proxyRes.headers['set-cookie']
   if (cookies) {
-    const newCookie = cookies.map(cookie => cookie.replace(/;\s.+/, ' ; Path=/'));
+    let newCookie = cookies.map(cookie => cookie.replace(/;\s.+/, ' ; Path=/'));
     delete proxyRes.headers['set-cookie'];
     proxyRes.headers['set-cookie'] = newCookie;
   }
