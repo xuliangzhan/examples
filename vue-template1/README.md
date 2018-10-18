@@ -1,9 +1,12 @@
 # 项目说明
 
-切换为官网：npm config set registry https://registry.npmjs.org
-切换为淘宝镜像：npm config set registry https://registry.npm.taobao.org
-
 ``` bash
+# 切换为官网：
+npm config set registry https://registry.npmjs.org
+
+#切换为淘宝镜像
+npm config set registry https://registry.npm.taobao.org
+
 # 安装依赖
 npm install
 
