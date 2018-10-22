@@ -1,5 +1,7 @@
 <template>
-  <div class="page-aside"></div>
+  <div class="page-aside">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
