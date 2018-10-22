@@ -13,6 +13,7 @@ export default {
 <style lang="scss" scoped>
 .page-aside {
   width: 240px;
+  display: flex;
   background-color: #d3dce6;
 }
 </style>
