@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { interceptors } from 'xe-ajax'
+import XEAjax from 'xe-ajax'
 
 export default {
   name: 'App',
@@ -18,11 +18,11 @@ export default {
     },
     onInterceptors () {
       // 请求之前拦截器
-      interceptors.request.use((request, next) => {
+      XEAjax.interceptors.request.use((request, next) => {
         next()
       })
       // 响应之后拦截器
-      interceptors.response.use((response, next) => {
+      XEAjax.interceptors.response.use((response, next) => {
         next()
       }, (e, next) => {
         next()
