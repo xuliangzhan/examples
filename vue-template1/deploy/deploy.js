@@ -10,10 +10,9 @@ function getParams (key) {
 }
 
 /**
- * 前端工程自动部署
- * 使用 WinSCP 工具上传文件
+ * 前端工程一键部署
+ * 使用 WinSCP 工具
  *
- * 命令：npm run deploy u=root p=123456 addr=127.0.0.1 port=22
  * 命令：npm run deploy u=root p=123456
  * 命令：npm run deploy
  */

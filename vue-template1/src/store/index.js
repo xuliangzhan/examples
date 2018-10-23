@@ -17,7 +17,7 @@ const store = new Vuex.Store({
   modules: { main, event }
 })
 
-// window.addEventListener('click', evnt => store.dispatch('triggerEvent', evnt))
+// document.addEventListener('click', evnt => store.dispatch('triggerEvent', evnt))
 // window.addEventListener('resize', evnt => store.dispatch('triggerEvent', evnt))
 
 export default store

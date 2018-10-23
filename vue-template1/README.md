@@ -28,6 +28,6 @@ npm run build:start
 # 编译打包分析器报告
 npm run build --report
 
-# 编译打包并部署（使用 WinSCP 工具自动发布）
+# 编译打包并部署（使用 WinSCP 工具一键部署）
 npm run deploy u=root p=123456
 ```
