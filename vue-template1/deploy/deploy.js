@@ -47,11 +47,11 @@ function uploadDeploy (options) {
     let deployTime = `${String(dateDiff.HH).padStart(2, 0)}:${String(dateDiff.mm).padStart(2, 0)}:${String(dateDiff.ss).padStart(2, 0)}`
     if (error || deployTime === '00:00:00') {
       console.log(chalk.red(`\nDeployment error.\n`))
-      console.log(`${chalk.magenta('Project Name')}: ${websiteName}\n${chalk.magenta('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.magenta('Lib')}: error\n${chalk.magenta('Project Path')}: ${websitePath}\n${chalk.magenta('Deploy Time')}: ${deployTime}\n`)
+      console.log(`${chalk.magenta('Project Name')}: ${websiteName}\n${chalk.magenta('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.magenta('Library')}: error\n${chalk.magenta('Project Path')}: ${websitePath}/${websiteName}\n${chalk.magenta('Deploy Time')}: ${deployTime}\n`)
       throw error
     } else {
       console.log(chalk.cyan(`\nDeployment success.\n`))
-      console.log(`${chalk.green('Project Name')}: ${websiteName}\n${chalk.green('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.green('Lib')}: ${websiteName}_${pack.version}_${datetime}.zip\n${chalk.green('Project Path')}: ${websitePath}\n${chalk.green('Deploy Time')}: ${deployTime}\n`)
+      console.log(`${chalk.green('Project Name')}: ${websiteName}\n${chalk.green('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.green('Library')}: ${websiteName}_${pack.version}_${datetime}.zip\n${chalk.green('Project Path')}: ${websitePath}/${websiteName}\n${chalk.green('Deploy Time')}: ${deployTime}\n`)
     }
   })
 }
