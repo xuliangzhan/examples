@@ -53,12 +53,13 @@ function uploadDeploy (userName, password, serverAddr, serverPort) {
     let dateDiff = XEUtils.getDateDiff(startTime, Date.now())
     let deployTime = `${String(dateDiff.HH).padStart(2, 0)}:${String(dateDiff.mm).padStart(2, 0)}:${String(dateDiff.ss).padStart(2, 0)}`
     if (error || deployTime === '00:00:00') {
-      console.log(chalk.red(`Deployment error.`))
-      console.log(`${chalk.magenta('Project Name')}: ${pack.name}\n${chalk.magenta('Server')}: ${defOpts.type}://${serverAddr}:${serverPort}\n${chalk.magenta('User Name')}: ${userName}\n${chalk.magenta('Project Path')}: ${defOpts.websitePath}\n${chalk.magenta('Deploy Time')}: ${deployTime}`)
+      console.log(chalk.red(`\nDeployment error.\n`))
+      console.log(`${chalk.magenta('Project Name')}: ${pack.name}\n${chalk.magenta('Server')}: ${defOpts.type}://${serverAddr}:${serverPort}\n${chalk.magenta('User Name')}: ${userName}\n${chalk.magenta('Project Path')}: ${defOpts.websitePath}\n${chalk.magenta('Deploy Time')}: ${deployTime}\n`)
       throw error
     } else {
-      console.log(chalk.yellow(`Deployment success.`))
-      console.log(`${chalk.green('Project Name')}: ${pack.name}\n${chalk.green('Server')}: ${defOpts.type}://${serverAddr}:${serverPort}\n${chalk.green('User Name')}: ${userName}\n${chalk.green('Project Path')}: ${defOpts.websitePath}\n${chalk.green('Deploy Time')}: ${deployTime}`)
+      console.log(chalk.cyan(`\nDeployment success.\n`))
+      console.log(`${chalk.green('Project Name')}: ${pack.name}\n${chalk.green('Server')}: ${defOpts.type}://${serverAddr}:${serverPort}\n${chalk.green('User Name')}: ${userName}\n${chalk.green('Project Path')}: ${defOpts.websitePath}\n${chalk.green('Deploy Time')}: ${deployTime}\n`)
+      console.log(chalk.yellow(`You can now visit the website directly.\n`))
     }
   })
 }
