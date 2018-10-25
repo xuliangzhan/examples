@@ -23,9 +23,9 @@ let defOpts = {
   // userName: null, // 服务器用户名
   // password: null, // 服务器密码
   type: 'sftp', // 传输协议ftp、sftp
-  uploadPath: `/home/upload`, // 包上传存放目录
-  websitePath: `/home/website/${pack.name}/www`, // 项目站点目录
-  websiteName: null, // 项目站名称
+  uploadPath: `/home/upload`, // 包发布历史存放目录
+  websitePath: `/home/website/${pack.name}/www`, // 项目部署站点路径
+  websiteName: null, // 自定义项目目录，默认使用项目名
   log: 'deploy/deploy.log' // 日志
 }
 
@@ -40,7 +40,7 @@ function uploadDeploy (options) {
   let uploadPath = options.uploadPath.replace(/\/?$/, '')
   let websitePath = options.websitePath.replace(/\/?$/, '')
   let datetime = XEUtils.dateToString(startTime, 'yyyyMMddHHmmss')
-  let commands = `"${options.winSCP}" /console /command "option confirm off" "open ${options.type}://${options.userName}:${encodeURIComponent(options.password)}@${options.serverAddr}:${options.serverPort}" "option transfer binary" "call if [ ! -d ${uploadPath} ];then mkdir ${uploadPath}; fi" "call if [ ! -d ${uploadPath}/${websiteName} ];then mkdir ${uploadPath}/${websiteName}; fi" "cd ${uploadPath}/${websiteName}" "put dist.zip" "call if [ ! -d ${websitePath} ];then mkdir ${websitePath}; fi" "call rm -rf ${websitePath}/${websiteName}" "call unzip dist.zip -d ${websitePath}/${websiteName}" "call if [ ! -d ${uploadPath}/${websiteName}/history ];then mkdir ${uploadPath}/${websiteName}/history; fi" "call mv dist.zip ${uploadPath}/${websiteName}/history/${websiteName}_${pack.version}_${datetime}.zip" "exit" /log=${options.log}`
+  let commands = `"${options.winSCP}" /console /command "option confirm off" "open ${options.type}://${options.userName}:${encodeURIComponent(options.password)}@${options.serverAddr}:${options.serverPort}" "option transfer binary" "call if [ ! -d ${uploadPath} ];then mkdir ${uploadPath}; fi" "call if [ ! -d ${uploadPath}/${websiteName} ];then mkdir ${uploadPath}/${websiteName}; fi" "cd ${uploadPath}/${websiteName}" "put dist.zip" "call if [ ! -d ${websitePath} ];then mkdir ${websitePath}; fi" "call rm -rf ${websitePath}/${websiteName}" "call unzip dist.zip -d ${websitePath}/${websiteName}" "call if [ ! -d ${uploadPath}/${websiteName}/history ];then mkdir ${uploadPath}/${websiteName}/history; fi" "call cp dist.zip ${uploadPath}/${websiteName}/history/${websiteName}_${pack.version}_${datetime}.zip" "exit" /log=${options.log}`
   console.log(chalk.yellow(`\n${commands}\n`))
   exec(commands, (error, stdout, stderr) => {
     let dateDiff = XEUtils.getDateDiff(startTime, Date.now())
