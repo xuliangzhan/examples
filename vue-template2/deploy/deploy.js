@@ -25,48 +25,51 @@ let defOpts = {
   type: 'sftp', // 传输协议ftp、sftp
   uploadPath: `/home/upload`, // 包上传存放目录
   websitePath: `/home/website/${pack.name}/www`, // 项目站点目录
+  websiteName: null, // 项目站名称
   log: 'deploy/deploy.log' // 日志
 }
 
-function uploadDeploy (userName, password, serverAddr, serverPort) {
-  if (!defOpts.type) {
-    throw new Error(`The type cannot be empty. type=${defOpts.type}`)
-  }
-  if (!userName) {
-    throw new Error(`The userName cannot be empty. userName=${userName}`)
-  }
-  if (!password) {
-    throw new Error(`The password cannot be empty. password=${password}`)
-  }
-  if (!serverAddr) {
-    throw new Error(`The serverAddr cannot be empty. serverAddr=${serverAddr}`)
-  }
-  if (!serverPort) {
-    throw new Error(`The serverPort cannot be empty. serverPort=${serverPort}`)
-  }
-  if (!defOpts.websitePath) {
-    throw new Error(`The websitePath cannot be empty. websitePath=${defOpts.websitePath}`)
+function uploadDeploy (options) {
+  for (let key of ['type', 'userName', 'password', 'serverAddr', 'serverPort', 'uploadPath', 'websitePath']) {
+    if (!options[key]) {
+      throw new Error(`The ${key} cannot be empty. type=${options[key]}`)
+    }
   }
   let startTime = Date.now()
+  let websiteName = options.websiteName || pack.name
+  let uploadPath = options.uploadPath.replace(/\/?$/, '')
+  let websitePath = options.websitePath.replace(/\/?$/, '')
   let datetime = XEUtils.dateToString(startTime, 'yyyyMMddHHmmss')
-  exec(`"${defOpts.winSCP}" /console /command "option confirm off" "open ${defOpts.type}://${userName}:${encodeURIComponent(password)}@${serverAddr}:${serverPort}" "option transfer binary" "call if [ ! -d ${defOpts.uploadPath} ];then mkdir ${defOpts.uploadPath}; fi" "call if [ ! -d ${defOpts.uploadPath}/${pack.name} ];then mkdir ${defOpts.uploadPath}/${pack.name}; fi" "cd ${defOpts.uploadPath}/${pack.name}" "put dist.zip" "call rm -rf ${defOpts.websitePath}" "call unzip dist.zip -d ${defOpts.websitePath}" "call if [ ! -d ${defOpts.uploadPath}/${pack.name}/history ];then mkdir ${defOpts.uploadPath}/${pack.name}/history; fi" "call mv dist.zip ${defOpts.uploadPath}/${pack.name}/history/${pack.name}_${pack.version}_${datetime}.zip" "exit" /log=${defOpts.log}`, (error, stdout, stderr) => {
+  let commands = `"${options.winSCP}" /console /command "option confirm off" "open ${options.type}://${options.userName}:${encodeURIComponent(options.password)}@${options.serverAddr}:${options.serverPort}" "option transfer binary" "call if [ ! -d ${uploadPath} ];then mkdir ${uploadPath}; fi" "call if [ ! -d ${uploadPath}/${websiteName} ];then mkdir ${uploadPath}/${websiteName}; fi" "cd ${uploadPath}/${websiteName}" "put dist.zip" "call if [ ! -d ${websitePath} ];then mkdir ${websitePath}; fi" "call rm -rf ${websitePath}/${websiteName}" "call unzip dist.zip -d ${websitePath}/${websiteName}" "call if [ ! -d ${uploadPath}/${websiteName}/history ];then mkdir ${uploadPath}/${websiteName}/history; fi" "call mv dist.zip ${uploadPath}/${websiteName}/history/${websiteName}_${pack.version}_${datetime}.zip" "exit" /log=${options.log}`
+  console.log(chalk.yellow(`\n${commands}\n`))
+  exec(commands, (error, stdout, stderr) => {
     let dateDiff = XEUtils.getDateDiff(startTime, Date.now())
     let deployTime = `${String(dateDiff.HH).padStart(2, 0)}:${String(dateDiff.mm).padStart(2, 0)}:${String(dateDiff.ss).padStart(2, 0)}`
     if (error || deployTime === '00:00:00') {
       console.log(chalk.red(`\nDeployment error.\n`))
-      console.log(`${chalk.magenta('Project Name')}: ${pack.name}\n${chalk.magenta('Server')}: ${defOpts.type}://${serverAddr}:${serverPort}\n${chalk.magenta('User Name')}: ${userName}\n${chalk.magenta('Project Path')}: ${defOpts.websitePath}\n${chalk.magenta('Deploy Time')}: ${deployTime}\n`)
+      console.log(`${chalk.magenta('Project Name')}: ${websiteName}\n${chalk.magenta('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.magenta('Lib')}: error\n${chalk.magenta('Project Path')}: ${websitePath}\n${chalk.magenta('Deploy Time')}: ${deployTime}\n`)
       throw error
     } else {
       console.log(chalk.cyan(`\nDeployment success.\n`))
-      console.log(`${chalk.green('Project Name')}: ${pack.name}\n${chalk.green('Server')}: ${defOpts.type}://${serverAddr}:${serverPort}\n${chalk.green('User Name')}: ${userName}\n${chalk.green('Project Path')}: ${defOpts.websitePath}\n${chalk.green('Deploy Time')}: ${deployTime}\n`)
-      console.log(chalk.yellow(`You can now visit the website directly.\n`))
+      console.log(`${chalk.green('Project Name')}: ${websiteName}\n${chalk.green('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.green('Lib')}: ${websiteName}_${pack.version}_${datetime}.zip\n${chalk.green('Project Path')}: ${websitePath}\n${chalk.green('Deploy Time')}: ${deployTime}\n`)
     }
   })
 }
 
+function getCommandParams (key, name) {
+  if (getParams(key)[1]) {
+    return {
+      [name]: getParams(key)[1]
+    }
+  }
+  return null
+}
+
 uploadDeploy(
-  getParams('u')[1] || defOpts.userName,
-  getParams('p')[1] || defOpts.password,
-  getParams('addr')[1] || defOpts.serverAddr,
-  getParams('port')[1] || defOpts.serverPort
+  Object.assign(defOpts, {
+    ...getCommandParams('u', 'userName'),
+    ...getCommandParams('p', 'password'),
+    ...getCommandParams('addr', 'serverAddr'),
+    ...getCommandParams('port', 'serverPort')
+  })
 )
