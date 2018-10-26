@@ -23,6 +23,7 @@ let defOpts = {
   // userName: null, // 服务器用户名
   // password: null, // 服务器密码
   type: 'sftp', // 传输协议ftp、sftp
+  isSaveHistory: true, // 是否保存历史发包记录
   uploadPath: `/home/upload`, // 包发布历史存放目录
   websitePath: `/home/website/${pack.name}/www`, // 项目部署站点路径
   websiteName: null, // 自定义项目目录，默认使用项目名
@@ -40,18 +41,18 @@ function uploadDeploy (options) {
   let uploadPath = options.uploadPath.replace(/\/?$/, '')
   let websitePath = options.websitePath.replace(/\/?$/, '')
   let datetime = XEUtils.dateToString(startTime, 'yyyyMMddHHmmss')
-  let commands = `"${options.winSCP}" /console /command "option confirm off" "open ${options.type}://${options.userName}:${encodeURIComponent(options.password)}@${options.serverAddr}:${options.serverPort}" "option transfer binary" "call if [ ! -d ${uploadPath} ];then mkdir ${uploadPath}; fi" "call if [ ! -d ${uploadPath}/${websiteName} ];then mkdir ${uploadPath}/${websiteName}; fi" "cd ${uploadPath}/${websiteName}" "put dist.zip" "call if [ ! -d ${websitePath} ];then mkdir ${websitePath}; fi" "call rm -rf ${websitePath}/${websiteName}" "call unzip dist.zip -d ${websitePath}/${websiteName}" "call if [ ! -d ${uploadPath}/${websiteName}/history ];then mkdir ${uploadPath}/${websiteName}/history; fi" "call cp dist.zip ${uploadPath}/${websiteName}/history/${websiteName}_${pack.version}_${datetime}.zip" "exit" /log=${options.log}`
-  console.log(chalk.yellow(`\n${commands}\n`))
+  let _saveHistory = options.isSaveHistory === true || options.isSaveHistory === '1' ? ` "call if [ ! -d ${uploadPath}/${websiteName}/history ];then mkdir ${uploadPath}/${websiteName}/history; fi" "call cp dist.zip ${uploadPath}/${websiteName}/history/${websiteName}_${pack.version}_${datetime}.zip"` : ''
+  let _log = ` "exit" /log=${options.log}`
+  let commands = `"${options.winSCP}" /console /command "option confirm off" "open ${options.type}://${options.userName}:${encodeURIComponent(options.password)}@${options.serverAddr}:${options.serverPort}" "option transfer binary" "call if [ ! -d ${uploadPath} ];then mkdir ${uploadPath}; fi" "call if [ ! -d ${uploadPath}/${websiteName} ];then mkdir ${uploadPath}/${websiteName}; fi" "cd ${uploadPath}/${websiteName}" "put dist.zip" "call if [ ! -d ${websitePath} ];then mkdir ${websitePath}; fi" "call rm -rf ${websitePath}/${websiteName}" "call unzip dist.zip -d ${websitePath}/${websiteName}"${_saveHistory}${_log}`
+  console.log(chalk`{bold.rgb(255,255,0) \n${commands}\n}`)
   exec(commands, (error, stdout, stderr) => {
     let dateDiff = XEUtils.getDateDiff(startTime, Date.now())
     let deployTime = `${String(dateDiff.HH).padStart(2, 0)}:${String(dateDiff.mm).padStart(2, 0)}:${String(dateDiff.ss).padStart(2, 0)}`
+    console.log(chalk`{bold.rgb(0,255,0) Project Name:} ${websiteName}\n{bold.rgb(0,255,0) Server:} ${options.type}://${options.serverAddr}:${options.serverPort}\n{bold.rgb(0,255,0) Library:} ${websiteName}_${pack.version}_${datetime}.zip\n{bold.rgb(0,255,0) Project Path:} ${websitePath}/${websiteName}\n{bold.rgb(0,255,0) Deploy Time:} ${deployTime}\n`)
     if (error || deployTime === '00:00:00') {
-      console.log(chalk.red(`\nDeployment error.\n`))
-      console.log(`${chalk.magenta('Project Name')}: ${websiteName}\n${chalk.magenta('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.magenta('Library')}: error\n${chalk.magenta('Project Path')}: ${websitePath}/${websiteName}\n${chalk.magenta('Deploy Time')}: ${deployTime}\n`)
       throw error
     } else {
-      console.log(chalk.cyan(`\nDeployment success.\n`))
-      console.log(`${chalk.green('Project Name')}: ${websiteName}\n${chalk.green('Server')}: ${options.type}://${options.serverAddr}:${options.serverPort}\n${chalk.green('Library')}: ${websiteName}_${pack.version}_${datetime}.zip\n${chalk.green('Project Path')}: ${websitePath}/${websiteName}\n${chalk.green('Deploy Time')}: ${deployTime}\n`)
+      console.log(chalk.cyan(`Deployment success.\n`))
     }
   })
 }
