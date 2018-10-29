@@ -10,7 +10,7 @@ const chalk = require('chalk');
 const rootDir = 'dist'
 const index = 'index.html'
 const targetPath = 'https://127.0.0.1'
-const PORT = 8090;
+const PORT = 80;
 const proxy = httpProxy.createProxyServer({
     ws: true,
     secure: false,
