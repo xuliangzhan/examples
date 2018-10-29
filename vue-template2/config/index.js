@@ -14,14 +14,14 @@ function onProxyRes(proxyRes, req, res) {
 }
 
 // 代理
-function ProxyConfig(target) {
-  return {
+function ProxyConfig(target, options) {
+  return Object.assign({
     target,
     secure: false,
     changeOrigin: true,
     ws: true,
     onProxyRes
-  }
+  }, options)
 }
 
 module.exports = {
