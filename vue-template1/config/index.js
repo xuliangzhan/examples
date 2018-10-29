@@ -13,13 +13,15 @@ function onProxyRes (proxyRes, req, res) {
   }
 }
 
-// 代理配置
-const proxyConfig = {
-  target: 'http://127.0.0.1:8090',
-  secure: false,
-  changeOrigin: true,
-  ws: true,
-  onProxyRes
+// 代理
+function ProxyConfig (target) {
+  return {
+    target,
+    secure: false,
+    changeOrigin: true,
+    ws: true,
+    onProxyRes
+  }
 }
 
 module.exports = {
@@ -29,7 +31,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': proxyConfig
+      '/api': new ProxyConfig('http://127.0.0.1:8080'),
+      '/publich': new ProxyConfig('http://127.0.0.1:8081')
     },
 
     // Various Dev Server settings
