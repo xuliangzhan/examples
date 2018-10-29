@@ -4,7 +4,7 @@
 
 const path = require('path')
 
-function onProxyRes (proxyRes, req, res) {
+function onProxyRes(proxyRes, req, res) {
   let cookies = proxyRes.headers['set-cookie']
   if (cookies) {
     let newCookie = cookies.map(cookie => cookie.replace(/;\s.+/, ' ; Path=/'));
@@ -14,7 +14,7 @@ function onProxyRes (proxyRes, req, res) {
 }
 
 // 代理
-function ProxyConfig (target) {
+function ProxyConfig(target) {
   return {
     target,
     secure: false,

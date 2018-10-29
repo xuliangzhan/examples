@@ -73,8 +73,8 @@ module.exports = new Promise((resolve, reject) => {
           messages: [`Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`],
         },
         onErrors: config.dev.notifyOnErrors
-        ? utils.createNotifierCallback()
-        : undefined
+          ? utils.createNotifierCallback()
+          : undefined
       }))
 
       resolve(devWebpackConfig)
