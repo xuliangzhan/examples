@@ -1,5 +1,9 @@
 # 项目说明
 
+1.简化代理配置
+2.支持打 zip 包
+3.支持一键部署
+
 ``` bash
 # 切换为官网：
 npm config set registry https://registry.npmjs.org
