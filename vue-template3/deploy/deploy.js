@@ -27,7 +27,7 @@ let defOpts = {
   isSaveHistory: true, // 是否保存历史发包记录
   uploadPath: `/home/upload`, // 包发布历史存放目录
   libPath: `./`, // 包的路径
-  libName: `./${pack.name}_${multiConfig.process.name}.zip`, // 包名
+  libName: `${pack.name}_${multiConfig.process.name}.zip`, // 包名
   websitePath: `/home/website/${pack.name}/www`, // 项目部署站点路径
   websiteName: `${pack.name}_${multiConfig.process.name}`, // 自定义项目目录，默认使用项目名
   log: 'deploy/deploy.log' // 日志

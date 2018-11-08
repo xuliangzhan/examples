@@ -25,6 +25,8 @@ let defOpts = {
   type: 'sftp', // 传输协议ftp、sftp
   isSaveHistory: true, // 是否保存历史发包记录
   uploadPath: `/home/upload`, // 包发布历史存放目录
+  libPath: `./`, // 包的路径
+  libName: `dist.zip`, // 包名
   websitePath: `/home/website/${pack.name}/www`, // 项目部署站点路径
   websiteName: null, // 自定义项目目录，默认使用项目名
   log: 'deploy/deploy.log' // 日志
@@ -41,9 +43,9 @@ function uploadDeploy (options) {
   let uploadPath = options.uploadPath.replace(/\/?$/, '')
   let websitePath = options.websitePath.replace(/\/?$/, '')
   let datetime = XEUtils.dateToString(startTime, 'yyyyMMddHHmmss')
-  let _saveHistory = options.isSaveHistory === true || options.isSaveHistory === '1' ? ` "call if [ ! -d ${uploadPath}/${websiteName}/history ];then mkdir ${uploadPath}/${websiteName}/history; fi" "call cp dist.zip ${uploadPath}/${websiteName}/history/${websiteName}_${pack.version}_${datetime}.zip"` : ''
+  let _saveHistory = options.isSaveHistory === true || options.isSaveHistory === '1' ? ` "call if [ ! -d ${uploadPath}/${websiteName}/history ];then mkdir ${uploadPath}/${websiteName}/history; fi" "call cp ${options.libName} ${uploadPath}/${websiteName}/history/${websiteName}_${pack.version}_${datetime}.zip"` : ''
   let _log = ` "exit" /log=${options.log}`
-  let commands = `"${options.winSCP}" /console /command "option confirm off" "open ${options.type}://${options.userName}:${encodeURIComponent(options.password)}@${options.serverAddr}:${options.serverPort}" "option transfer binary" "call if [ ! -d ${uploadPath} ];then mkdir ${uploadPath}; fi" "call if [ ! -d ${uploadPath}/${websiteName} ];then mkdir ${uploadPath}/${websiteName}; fi" "cd ${uploadPath}/${websiteName}" "put dist.zip" "call if [ ! -d ${websitePath} ];then mkdir ${websitePath}; fi" "call rm -rf ${websitePath}/${websiteName}" "call unzip dist.zip -d ${websitePath}/${websiteName}"${_saveHistory}${_log}`
+  let commands = `"${options.winSCP}" /console /command "option confirm off" "open ${options.type}://${options.userName}:${encodeURIComponent(options.password)}@${options.serverAddr}:${options.serverPort}" "option transfer binary" "call if [ ! -d ${uploadPath} ];then mkdir ${uploadPath}; fi" "call if [ ! -d ${uploadPath}/${websiteName} ];then mkdir ${uploadPath}/${websiteName}; fi" "cd ${uploadPath}/${websiteName}" "put ${options.libPath}${options.libName}" "call if [ ! -d ${websitePath} ];then mkdir ${websitePath}; fi" "call rm -rf ${websitePath}/${websiteName}" "call unzip ${options.libName} -d ${websitePath}/${websiteName}"${_saveHistory}${_log}`
   console.log(chalk`{bold.rgb(255,255,0) \n${commands}\n}`)
   exec(commands, (error, stdout, stderr) => {
     let dateDiff = XEUtils.getDateDiff(startTime, Date.now())
