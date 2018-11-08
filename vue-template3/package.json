@@ -2,7 +2,7 @@
   "name": "vue-template3",
   "version": "1.0.0",
   "description": "Vue",
-  "author": "Xu Liangzhan",
+  "author": "xuliangzhan",
   "private": true,
   "scripts": {
     "serve": "npm run dev",
