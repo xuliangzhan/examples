@@ -32,7 +32,7 @@ npm run build:zip
 # （单个项目）编译并生成 zip 生产包
 npm run build:项目名:zip
 
-# （单个项目）编译并访问生产包
+# （单个项目）访问生产包
 npm run start:项目名
 
 # （单个项目）编译打包分析器报告
