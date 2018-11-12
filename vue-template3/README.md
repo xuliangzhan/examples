@@ -1,4 +1,4 @@
-# 项目说明
+# 模块说明
 
  1. 支持多模块项目
  2. 子模块支持独立运行、编译打包
@@ -17,32 +17,32 @@ npm config set registry https://registry.npm.taobao.org
 # 安装依赖
 npm install
 
-# （单个项目）启动本地服务
-npm run dev:项目名
+# （单个模块）启动本地服务
+npm run dev:模块名
 
-# （所有项目）编译所有生产包
+# （所有模块）编译所有生产包
 npm run build
 
-# （单个项目）编译项目生产包
-npm run build:项目名
+# （单个模块）编译模块生产包
+npm run build:模块名
 
-# （所有项目）编译并生成 zip 生产包
+# （所有模块）编译并生成 zip 生产包
 npm run build:zip
 
-# （单个项目）编译并生成 zip 生产包
-npm run build:项目名:zip
+# （单个模块）编译并生成 zip 生产包
+npm run build:模块名:zip
 
-# （单个项目）访问生产包
-npm run start:项目名
+# （单个模块）访问生产包
+npm run start:模块名
 
-# （单个项目）编译打包分析器报告
-npm run build:项目名 --report
+# （单个模块）编译打包分析器报告
+npm run build:模块名 --report
 
-# （所有项目）一键部署
+# （所有模块）一键部署
 npm run deploy
 npm run deploy u=root p=123456
 
-# (单个项目) 一键部署
-npm run deploy:项目名
-npm run deploy:项目名 u=root p=123456
+# (单个模块) 一键部署
+npm run deploy:模块名
+npm run deploy:模块名 u=root p=123456
 ```
