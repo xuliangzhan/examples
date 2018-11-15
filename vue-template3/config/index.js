@@ -29,11 +29,11 @@ module.exports = {
   dev: {
 
     // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsSubDirectory: multiConfig.process.assetsSubDirectory,
+    assetsPublicPath: multiConfig.process.assetsPublicPath,
     proxyTable: {
       '/api': new ProxyConfig('http://127.0.0.1:8082'),
-      '/websocket': new ProxyConfig('http://127.0.0.1:8083', {ws: true})
+      '/websocket': new ProxyConfig('http://127.0.0.1:8083', { ws: true })
     },
 
     // Various Dev Server settings
@@ -78,8 +78,8 @@ module.exports = {
 
     // Paths
     assetsRoot: multiConfig.process.assetsRoot,
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsSubDirectory: multiConfig.process.assetsSubDirectory,
+    assetsPublicPath: multiConfig.process.assetsPublicPath,
 
     /**
      * Source Maps
