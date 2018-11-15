@@ -38,7 +38,7 @@ function getModuleProcess(name) {
   return mItem || importModules[0]
 }
 
-// 多模块配置
+// 多模块独立配置
 var importModules = [
   getModuleConfg('project1'),
   getModuleConfg('project2'),
