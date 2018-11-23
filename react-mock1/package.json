@@ -7,7 +7,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
-    "xe-ajax": "^3.4.12",
+    "xe-ajax": "^3.4.13",
     "xe-ajax-mock": "^1.7.4",
     "xe-utils": "^1.6.25"
   },
