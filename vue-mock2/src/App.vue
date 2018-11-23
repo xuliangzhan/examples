@@ -6,7 +6,27 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    this.init()
+  },
+  methods: {
+    init () {
+      this.onInterceptors()
+    },
+    onInterceptors () {
+      // 请求之前拦截器
+      this.$ajax.interceptors.request.use((request, next) => {
+        next()
+      })
+      // 响应之后拦截器
+      this.$ajax.interceptors.response.use((response, next) => {
+        next()
+      }, (e, next) => {
+        next()
+      })
+    }
+  }
 }
 </script>
 
