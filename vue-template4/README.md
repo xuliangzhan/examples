@@ -1,20 +1,27 @@
 
 # Vue 项目升级 webpack4
 
- [查看博客](https://blog.csdn.net/xlz26296/article/details/84350881)
+[查看博客](https://blog.csdn.net/xlz26296/article/details/84350881)
 
 由于 vue-cli 2 构建的项目是基于 webpack3，所以只能自己动手改动，至于升级 webpack4之后提升的编译速度以及各种插件自己去体验。
 
 ## 修改配置
 
- 1. 替换插件 extract-text-webpack-plugin，使用 webpack4 推荐使用的插件 mini-css-extract-plugin
+1. 替换插件 extract-text-webpack-plugin，使用 webpack4 推荐使用的插件 mini-css-extract-plugin
 
-build/webpack.prod.conf.js 
+build/webpack.prod.conf.js
 
 ```javascript
 // ...省略
 // const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// ...省略
+
+// ...省略
+  devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  performance: {
+    hints: false
+  },
 // ...省略
 
 // ...省略
@@ -52,9 +59,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // ...省略
 ```
 
- 2. 去掉 webpack.optimize.CommonsChunkPlugin 相关配置
+2. 去掉 webpack.optimize.CommonsChunkPlugin 相关配置
 
-build/webpack.prod.conf.js 
+build/webpack.prod.conf.js
 
 ```javascript
 // ...省略
@@ -90,9 +97,9 @@ build/webpack.prod.conf.js
 // ...省略
 ```
 
- 3. 增加 optimization 配置
+3. 增加 optimization 配置
 
-build/webpack.prod.conf.js 
+build/webpack.prod.conf.js
 
  ```javascript
  // ...省略
@@ -135,9 +142,9 @@ build/webpack.prod.conf.js
   // ...省略
  ```
 
- 4. 修改 utils 配置
- 
- build/utils.js
+4. 修改 utils 配置
+
+build/utils.js
 
 ```javascript
 // ...省略
@@ -157,20 +164,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     }
 // ...省略
 ```
- 
- 5. 增加 mode 配置
- 
+
+5. 增加 mode 配置
+
  build/webpack.base.conf.js
 
  ```javascript
- 
+
  module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   context: path.resolve(__dirname, '../'),
   // ...省略
  ```
- 
- 6. 修改 package.json 依赖版本，自己去对比下，其他依赖的升级到最新即可
+
+6. 修改 package.json 依赖版本，自己去对比下，其他依赖的升级到最新即可
 
  ```javascript
  // ...省略
@@ -239,9 +246,3 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
   },
   // ...省略
  ```
- 
-
-
- 
-
-
