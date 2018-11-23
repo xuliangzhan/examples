@@ -7,7 +7,7 @@
 
 ## 修改配置
 
-1. 替换插件 extract-text-webpack-plugin，使用 webpack4 推荐使用的插件 mini-css-extract-plugin
+### 1.替换插件 extract-text-webpack-plugin，使用 webpack4 推荐使用的插件 mini-css-extract-plugin
 
 build/webpack.prod.conf.js
 
@@ -30,7 +30,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     //   filename: utils.assetsPath('css/[name].[contenthash].css'),
     //   // Setting the following option to `false` will not extract CSS from codesplit chunks.
     //   // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
-    //   // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
+    //   // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
     //   // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
     //   allChunks: true
     // }),
@@ -59,7 +59,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // ...省略
 ```
 
-2. 去掉 webpack.optimize.CommonsChunkPlugin 相关配置
+### 2.去掉 webpack.optimize.CommonsChunkPlugin 相关配置
 
 build/webpack.prod.conf.js
 
@@ -97,52 +97,52 @@ build/webpack.prod.conf.js
 // ...省略
 ```
 
-3. 增加 optimization 配置
+### 3.增加 optimization 配置
 
 build/webpack.prod.conf.js
 
- ```javascript
- // ...省略
-   optimization: {
-    runtimeChunk: {
-      name: 'manifest'
-    },
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: config.build.productionSourceMap,
-        uglifyOptions: {
-          warnings: false
-        }
-      }),
-      new OptimizeCSSPlugin({
-        cssProcessorOptions: config.build.productionSourceMap
-          ? { safe: true, map: { inline: false } }
-          : { safe: true }
-      }),
-    ],
-    splitChunks: {
-      chunks: 'async',
-      minSize: 30000,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      name: false,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'initial',
-          priority: -10
-        }
+```javascript
+// ...省略
+  optimization: {
+  runtimeChunk: {
+    name: 'manifest'
+  },
+  minimizer: [
+    new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: config.build.productionSourceMap,
+      uglifyOptions: {
+        warnings: false
+      }
+    }),
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: config.build.productionSourceMap
+        ? { safe: true, map: { inline: false } }
+        : { safe: true }
+    }),
+  ],
+  splitChunks: {
+    chunks: 'async',
+    minSize: 30000,
+    minChunks: 1,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
+    name: false,
+    cacheGroups: {
+      vendors: {
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendor',
+        chunks: 'initial',
+        priority: -10
       }
     }
   }
-  // ...省略
- ```
+}
+// ...省略
+```
 
-4. 修改 utils 配置
+### 4.修改 utils 配置
 
 build/utils.js
 
@@ -165,84 +165,85 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // ...省略
 ```
 
-5. 增加 mode 配置
+### 5.增加 mode 配置
 
- build/webpack.base.conf.js
+build/webpack.base.conf.js
 
- ```javascript
+```javascript
 
- module.exports = {
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  context: path.resolve(__dirname, '../'),
-  // ...省略
- ```
+module.exports = {
+mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+context: path.resolve(__dirname, '../'),
+// ...省略
+```
 
-6. 修改 package.json 依赖版本，自己去对比下，其他依赖的升级到最新即可
+### 6.修改 package.json 依赖版本，自己去对比下，其他依赖的升级到最新即可
 
- ```javascript
- // ...省略
-    "autoprefixer": "^9.3.1",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-jest": "^23.6.0",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-component": "^1.1.1",
-    "babel-plugin-dynamic-import-node": "^2.2.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-plugin-transform-vue-jsx": "^3.7.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "chalk": "^2.4.1",
-    "chromedriver": "^2.44.0",
-    "copy-webpack-plugin": "^4.6.0",
-    "cross-spawn": "^6.0.5",
-    "css-loader": "^1.0.1",
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-friendly-formatter": "^4.0.0",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^8.0.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^3.1.0",
-    "eslint-plugin-vue": "^4.7.1",
-    "file-loader": "^2.0.0",
-    "filemanager-webpack-plugin": "^2.0.5",
-    "friendly-errors-webpack-plugin": "^1.7.0",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.4.5",
-    "jest": "^23.6.0",
-    "jest-serializer-vue": "^2.0.2",
-    "nightwatch": "^0.9.12",
-    "node-notifier": "^5.3.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "ora": "^3.0.0",
-    "portfinder": "^1.0.19",
-    "postcss-import": "^12.0.1",
-    "postcss-loader": "^3.0.0",
-    "postcss-px2rem": "^0.3.0",
-    "postcss-url": "^8.0.0",
-    "rimraf": "^2.6.2",
-    "semver": "^5.6.0",
-    "shelljs": "^0.8.3",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "uglifyjs-webpack-plugin": "^1.1.1",
-    "url-loader": "^1.1.2",
-    "vue-jest": "^3.0.0",
-    "vue-loader": "^14.2.2",
-    "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.26.0",
-    "webpack-bundle-analyzer": "^3.0.3",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
-    "webpack-merge": "^4.1.4"
-  },
-  // ...省略
- ```
+```javascript
+// ...省略
+"devDependencies": {
+  "autoprefixer": "^9.3.1",
+  "babel-core": "^6.26.3",
+  "babel-eslint": "^10.0.1",
+  "babel-helper-vue-jsx-merge-props": "^2.0.3",
+  "babel-jest": "^23.6.0",
+  "babel-loader": "^7.1.5",
+  "babel-plugin-component": "^1.1.1",
+  "babel-plugin-dynamic-import-node": "^2.2.0",
+  "babel-plugin-syntax-jsx": "^6.18.0",
+  "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+  "babel-plugin-transform-runtime": "^6.23.0",
+  "babel-plugin-transform-vue-jsx": "^3.7.0",
+  "babel-polyfill": "^6.26.0",
+  "babel-preset-env": "^1.7.0",
+  "babel-preset-stage-2": "^6.24.1",
+  "babel-register": "^6.26.0",
+  "chalk": "^2.4.1",
+  "chromedriver": "^2.44.0",
+  "copy-webpack-plugin": "^4.6.0",
+  "cross-spawn": "^6.0.5",
+  "css-loader": "^1.0.1",
+  "eslint": "^4.19.1",
+  "eslint-config-standard": "^10.2.1",
+  "eslint-friendly-formatter": "^4.0.0",
+  "eslint-loader": "^2.1.1",
+  "eslint-plugin-import": "^2.14.0",
+  "eslint-plugin-node": "^8.0.0",
+  "eslint-plugin-promise": "^4.0.1",
+  "eslint-plugin-standard": "^3.1.0",
+  "eslint-plugin-vue": "^4.7.1",
+  "file-loader": "^2.0.0",
+  "filemanager-webpack-plugin": "^2.0.5",
+  "friendly-errors-webpack-plugin": "^1.7.0",
+  "html-webpack-plugin": "^3.2.0",
+  "mini-css-extract-plugin": "^0.4.5",
+  "jest": "^23.6.0",
+  "jest-serializer-vue": "^2.0.2",
+  "nightwatch": "^0.9.12",
+  "node-notifier": "^5.3.0",
+  "optimize-css-assets-webpack-plugin": "^5.0.1",
+  "ora": "^3.0.0",
+  "portfinder": "^1.0.19",
+  "postcss-import": "^12.0.1",
+  "postcss-loader": "^3.0.0",
+  "postcss-px2rem": "^0.3.0",
+  "postcss-url": "^8.0.0",
+  "rimraf": "^2.6.2",
+  "semver": "^5.6.0",
+  "shelljs": "^0.8.3",
+  "stylus": "^0.54.5",
+  "stylus-loader": "^3.0.2",
+  "uglifyjs-webpack-plugin": "^1.1.1",
+  "url-loader": "^1.1.2",
+  "vue-jest": "^3.0.0",
+  "vue-loader": "^14.2.2",
+  "vue-style-loader": "^4.1.2",
+  "vue-template-compiler": "^2.5.17",
+  "webpack": "^4.26.0",
+  "webpack-bundle-analyzer": "^3.0.3",
+  "webpack-cli": "^3.1.2",
+  "webpack-dev-server": "^3.1.10",
+  "webpack-merge": "^4.1.4"
+},
+// ...省略
+```
