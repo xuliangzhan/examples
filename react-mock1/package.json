@@ -9,7 +9,7 @@
     "react-scripts": "1.1.1",
     "xe-ajax": "^3.4.13",
     "xe-ajax-mock": "^1.7.4",
-    "xe-utils": "^1.6.25"
+    "xe-utils": "^1.7.0-beta.0"
   },
   "scripts": {
     "start": "react-scripts start",

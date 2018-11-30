@@ -5,8 +5,8 @@ define([
     template: tmpl,
     data: function () {
       return {
-        title: 'vue + xe-ajax 3.0 + mock 例子',
-        dateStr: this.$utils.dateToString(new Date(), 'MM/dd/yyyy HH:mm:ss'),
+        title: 'vue + xe-ajax + mock 例子',
+        dateStr: this.$utils.toDateString(new Date(), 'MM/dd/yyyy HH:mm:ss'),
         loading: false,
         userList: [],
         shoppingList: [],
