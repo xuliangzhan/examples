@@ -23,7 +23,7 @@
     "vxe-ajax": "^1.4.3",
     "xe-ajax": "^3.4.14",
     "xe-ajax-mock": "^1.7.4",
-    "xe-utils": "^1.7.3"
+    "xe-utils": "^1.7.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
