@@ -33,7 +33,7 @@
     "vxe-ajax": "^1.4.3",
     "vxe-utils": "^1.4.3",
     "xe-ajax": "^3.4.14",
-    "xe-utils": "^1.7.4"
+    "xe-utils": "^1.7.6"
   },
   "devDependencies": {
     "autoprefixer": "^9.3.1",
