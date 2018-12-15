@@ -4,13 +4,26 @@
 
 const path = require('path')
 
+function getProxyConfig (target, options) {
+  return Object.assign({
+    target,
+    secure: false,
+    changeOrigin: true,
+    ws: false,
+    cookieDomainRewrite: {'*': ''},
+    cookiePathRewrite: {'*': '/'}
+  }, options)
+}
+
 module.exports = {
   dev: {
 
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api': getProxyConfig('http://127.0.0.1:8082')
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
