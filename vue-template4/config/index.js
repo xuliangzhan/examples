@@ -31,6 +31,8 @@ function getProxyConfig(target, options) {
   }, options)
 }
 
+const PROXY_DOMAIN_DEFAULT = 'http://127.0.0.1:8090'
+
 module.exports = {
   dev: {
 
@@ -38,7 +40,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': getProxyConfig('http://127.0.0.1:8082')
+      '/api/': getProxyConfig(PROXY_DOMAIN_DEFAULT)
     },
 
     // Various Dev Server settings
