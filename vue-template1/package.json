@@ -17,10 +17,10 @@
     "vue": "^2.5.17",
     "vue-router": "^3.0.2",
     "vuex": "^3.0.1",
-    "vxe-ajax": "^1.4.4",
-    "vxe-utils": "^1.4.4",
-    "xe-ajax": "^3.5.0",
-    "xe-utils": "^1.7.8"
+    "vxe-ajax": "^1.4.6",
+    "vxe-utils": "^1.4.6",
+    "xe-ajax": "^3.5.1",
+    "xe-utils": "^1.7.9"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
