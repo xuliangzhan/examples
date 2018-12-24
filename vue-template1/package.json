@@ -20,7 +20,7 @@
     "vxe-ajax": "^1.4.4",
     "vxe-utils": "^1.4.4",
     "xe-ajax": "^3.5.0",
-    "xe-utils": "^1.7.7"
+    "xe-utils": "^1.7.8"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
