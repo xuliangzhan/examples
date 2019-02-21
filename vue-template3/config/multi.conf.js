@@ -12,7 +12,7 @@ function getParams(key) {
 
 function getModuleAlias() {
   let alias = {}
-  importModules.forEach(name => {
+  importModules.forEach(({ name }) => {
     alias[`@${name}`] = resolve(`src/${name}`)
   })
   return alias
