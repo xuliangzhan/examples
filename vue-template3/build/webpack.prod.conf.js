@@ -1,5 +1,5 @@
 'use strict'
-const fs = require('fs');
+const fs = require('fs')
 const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
@@ -17,7 +17,7 @@ function isDirectory (path) {
   try {
     let stat = fs.statSync(path)
     return stat.isDirectory()
-  } catch(e) {
+  } catch (e) {
     return false
   }
 }
@@ -35,10 +35,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     })
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  performance: {
+    hints: false
+  },
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash].js')
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -89,13 +92,19 @@ const webpackConfig = merge(baseWebpackConfig, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // copy custom static assets
-    ...(isDirectory(path.resolve(__dirname, `../static/${multiConfig.process.name}`)) ? [new CopyWebpackPlugin([
+    new CopyWebpackPlugin([].concat(isDirectory(path.resolve(__dirname, `../static/comm`)) ? [
+      {
+        from: path.resolve(__dirname, `../static/comm`),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ] : []).concat(isDirectory(path.resolve(__dirname, `../static/${multiConfig.process.name}`)) ? [
       {
         from: path.resolve(__dirname, `../static/${multiConfig.process.name}`),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])] : []),
+    ] : [])),
     // pack zip
     ...require('./zip')
   ],

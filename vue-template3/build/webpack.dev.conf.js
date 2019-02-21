@@ -1,4 +1,6 @@
 'use strict'
+const fs = require('fs')
+const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
@@ -14,14 +16,29 @@ const multiConfig = require('../config/multi.conf')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-function porxyStatic() {
-  let re = new RegExp()
+function isExists (path) {
+  try {
+    fs.statSync(path)
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+function porxyStatic () {
   return {
     '/static': {
       target: `http://${config.dev.host}:${config.dev.port}`,
-      bypass: function(req, res, proxyOptions) {
+      bypass: function (req, res, proxyOptions) {
         if (req.path.indexOf(`/${config.dev.assetsSubDirectory}/`) === 0) {
-          return req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${multiConfig.process.name}/`);
+          let selfPath = req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/${multiConfig.process.name}/`)
+          let commPath = req.path.replace(`/${config.dev.assetsSubDirectory}/`, `/${config.dev.assetsSubDirectory}/comm/`)
+          if (isExists(path.resolve(__dirname, `../${selfPath}`))) {
+            return selfPath
+          } else if (isExists(path.resolve(__dirname, `../${commPath}`))) {
+            return commPath
+          }
+          return req.path
         }
       }
     }
@@ -87,11 +104,11 @@ module.exports = new Promise((resolve, reject) => {
       let host = ['localhost', '127.0.0.1', '0.0.0.0'].includes(devWebpackConfig.devServer.host) ? 'localhost' : devWebpackConfig.devServer.host
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [chalk`{bold.rgb(255,255,0) [${pack.name} => ${multiConfig.process.name}]} Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`],
+          messages: [chalk`{bold.rgb(255,255,0) [${pack.name} => ${multiConfig.process.name}]} Your application is running here: http://${host}:${port}${config.dev.assetsPublicPath}`]
         },
         onErrors: config.dev.notifyOnErrors
-        ? utils.createNotifierCallback()
-        : undefined
+          ? utils.createNotifierCallback()
+          : undefined
       }))
 
       resolve(devWebpackConfig)
