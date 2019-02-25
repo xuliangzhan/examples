@@ -121,7 +121,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
-    ...require('./zip')
+    ...require('./packZip')
   ]
 })
 
