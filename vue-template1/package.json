@@ -19,8 +19,8 @@
     "vuex": "^3.0.1",
     "vxe-ajax": "^1.4.6",
     "vxe-utils": "^1.4.6",
-    "xe-ajax": "^3.5.2",
-    "xe-utils": "^1.8.8"
+    "xe-ajax": "^3.5.3",
+    "xe-utils": "^1.8.9"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
