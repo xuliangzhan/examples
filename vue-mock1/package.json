@@ -22,8 +22,8 @@
     "vuex": "^3.0.1",
     "vxe-ajax": "^1.4.8",
     "xe-ajax": "^3.5.3",
-    "xe-ajax-mock": "^1.7.8",
-    "xe-utils": "^1.8.12"
+    "xe-ajax-mock": "^1.7.10",
+    "xe-utils": "^1.8.19"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
