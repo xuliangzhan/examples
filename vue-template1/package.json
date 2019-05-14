@@ -20,7 +20,7 @@
     "vxe-ajax": "^1.4.8",
     "vxe-utils": "^1.4.8",
     "xe-ajax": "^3.5.3",
-    "xe-utils": "^1.8.20"
+    "xe-utils": "^1.8.22"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
